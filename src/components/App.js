@@ -2,16 +2,30 @@ import React, { useState, StrictMode } from "react";
 import { connect } from 'react-redux';
 import Carousel from "react-simply-carousel";
 import '../index.css';
+import 'react-responsive-modal/styles.css';
+import { Modal } from 'react-responsive-modal';
+import { useNavigate} from 'react-router-dom';
 
 const App = ({ qty, dispatch }) => {
+    const navigate = useNavigate();
     const [activeSlide1, setActiveSlide1] = useState(0);
     const [activeSlide2, setActiveSlide2] = useState(0);
+    const [activeSlide3, setActiveSlide3] = useState(0);
     const products = [
         "https://cdn.pixabay.com/photo/2020/01/06/23/45/watercolor-4746520_960_720.jpg",
         "https://cdn.pixabay.com/photo/2017/11/25/12/53/watercolour-2976746_1280.jpg",
         "https://cdn.pixabay.com/photo/2018/07/18/15/43/animal-3546613_1280.jpg",
         "https://cdn.pixabay.com/photo/2021/03/13/10/23/hut-6091451_1280.jpg"
     ];
+
+    const [open, setOpen] = useState(false);
+
+  const onOpenModal = (index) => {
+    setActiveSlide3(index)
+    setOpen(true)
+  };
+  const onCloseModal = () => setOpen(false);
+
     const [navOpen, setNavOpen] = useState(true);
 
     const toggleNav = () => {
@@ -32,6 +46,8 @@ const App = ({ qty, dispatch }) => {
 
     const ViewProduct = (product) => {
         console.log(product);
+        navigate("/product");
+        // onOpenModal(product)
     }
 
     const navIconClass = navOpen ? 'open' : '';
@@ -96,13 +112,13 @@ const App = ({ qty, dispatch }) => {
                             style={{
                             width: 79,
                             height: 79,
-                            border: "5px solid white",
+                            margin: 10,
+                            border: "5px solid transparent",
                             textAlign: "center",
                             }}
-                            key={index}
-                            onClick={() => ViewProduct(item)}
+                            key={index}                            
                         >
-                            <img src={item} />
+                            <img src={item} onClick={() => onOpenModal(index)} />
                         </div>
                         ))}
                     </Carousel>
@@ -183,13 +199,14 @@ const App = ({ qty, dispatch }) => {
                             style={{
                             width: 79,
                             height: 79,
-                            border: "5px solid white",
+                            margin: 10,
+                            border: "5px solid transparent",
                             textAlign: "center",
                             }}
                             key={index}
-                            onClick={() => ViewProduct(item)}
+                            
                         >
-                            <img src={item} />
+                            <img src={item} onClick={() => onOpenModal(index)} />
                         </div>
                         ))}
                     </Carousel>
@@ -203,6 +220,74 @@ const App = ({ qty, dispatch }) => {
                     <span></span>
                     </div>
                 </div>
+                <div>
+            <Modal open={open} onClose={onCloseModal} classNames="kkkkkk-modal" center>
+                <Carousel
+                    containerProps={{
+                    style: {
+                        width: "100%",
+                        justifyContent: "center",
+                        userSelect: "none"
+                    }
+                    }}
+                    preventScrollOnSwipe
+                    swipeTreshold={60}
+                    activeSlideIndex={activeSlide3}
+                    responsiveProps={[
+                        {
+                        itemsToShow: 1,
+                        itemsToScroll: 1,
+                        minWidth: 768,
+                        },
+                    ]}
+                    onRequestChange={setActiveSlide3}
+                    forwardBtnProps={{
+                        show:true,
+                    children: ">",
+                    style: {
+                        width: 20,
+                        height: 20,
+                        minWidth: 20,
+                        alignSelf: "center",
+                        borderRadius:"50%"
+                    }
+                    }}
+                    backwardBtnProps={{
+                        show:true,
+                    children: "<",
+                    style: {
+                        width: 20,
+                        height: 20,
+                        minWidth: 20,
+                        alignSelf: "center",
+                        borderRadius:"50%"
+                    }
+                    }}
+                    speed={600}
+                    centerMode
+                >
+                    {products.map((item, index) => (
+                    <div
+                        className="image-item"
+                        style={{
+                        width: 79,
+                        height: 79,
+                        margin: 10,
+                        border: "5px solid transparent",
+                        textAlign: "center",
+                        }}
+                        key={index}
+                        onClick={() => ViewProduct(item)}
+                    >
+                        <img src={item} />
+                        <div className="productView">
+                            <button onClick={() => {ViewProduct(item)}}>View</button>
+                        </div>
+                    </div>
+                    ))}
+                </Carousel>                            
+            </Modal>
+        </div>
                 <div className="main-content">
                     <p>Watercolors can also be made opaque by adding Chinese white.</p>
                 </div>
