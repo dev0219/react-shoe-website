@@ -366,3 +366,10 @@ p {
   border: none;
   margin-top: 10px;
 }
+
+@media screen and (max-width: 414px) {
+  .react-responsive-modal-modal .image-item img {
+    width: 300px !important;
+    height: 300px !important;
+  }
+}

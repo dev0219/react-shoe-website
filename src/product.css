@@ -34,7 +34,7 @@
 
 .rounded-background-box {
   margin: 100px auto;
-  width: 1200px;
+  /* width: 1200px; */
   height: 450px;
   background-color: #ffffff;
   border-radius: 25px;
@@ -165,4 +165,50 @@
 0% {transform: translateY(0px);}
 50% {transform: translateY(-20px);}
 100% {transform: translateY(0px);}
+}
+
+
+@media screen and (min-width: 1200px) {
+  .rounded-background-box {
+    width: 1200px;
+  }
+}
+
+@media only screen and (max-width: 1200px) and (min-width: 712px){
+  .rounded-background-box {
+    width: 700px;
+  }
+}
+
+@media screen and (max-width: 712px) {
+  .rounded-background-box {
+    width: 400px;
+    height: 750px;
+  }
+}
+
+.mobile .tablet {
+  width: 350px;
+  top: 80px;
+}
+
+.mobile .right-rounded-column {
+  width: 400px;
+}
+
+.mobile .product-info {
+  margin-top: 220px;
+}
+
+.mobile .cart-price {
+  display: grid;
+  width: 400px;
+  margin-top: 30px;
+  text-align: center;
+}
+.mobile .cart-price h2{
+  float: none;
+  margin: auto;
+  margin-top: 10px;
+  width: 200px;
 }

@@ -49,7 +49,7 @@ const App = ({ qty, dispatch }) => {
         navigate("/product");
         // onOpenModal(product)
     }
-
+    
     const navIconClass = navOpen ? 'open' : '';
     return (
         <div className={'wrapper'}>
@@ -277,7 +277,6 @@ const App = ({ qty, dispatch }) => {
                         textAlign: "center",
                         }}
                         key={index}
-                        onClick={() => ViewProduct(item)}
                     >
                         <img src={item} />
                         <div className="productView">
